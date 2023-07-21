@@ -1,27 +1,25 @@
 import streamlit as st
 
-def main():
+def is_valid_name(name):
+    # Regular expression to check if the name contains only letters and spaces
+    return bool(name.strip().isalpha())
+
+def is_valid_age(age):
+    # Check if the age is between 1 and 99 (inclusive)
+    return 1 <= age <= 99
+
+def app(name, age):
     st.title("User Input Example")
-    
-    # Text input
-    name = st.text_input("Enter your name")
-    st.write(f"Hello, {name}!")
-    
-    # Number input
-    age = st.number_input("Enter your age", min_value=0, max_value=150, value=25)
-    st.write(f"You are {age} years old.")
-    
-    # Checkbox input
-    agreement = st.checkbox("I agree to the terms and conditions")
-    if agreement:
-        st.write("You agreed to the terms and conditions.")
+
+    # Check if the name is valid
+    if not is_valid_name(name):
+        st.error("Please enter a valid name (letters only, no numbers or special characters).")
     else:
-        st.write("Please agree to the terms and conditions.")
-    
-    # Dropdown select input
-    options = ["Option 1", "Option 2", "Option 3"]
-    chosen_option = st.selectbox("Choose an option", options)
-    st.write(f"You selected: {chosen_option}")
-    
-if __name__ == "__main__":
-    main()
+        st.write(f"Hello, {name}!")
+
+    # Check if the age is valid
+    if not is_valid_age(age):
+        st.error("Please enter a valid age (between 1 and 99).")
+    else:
+        st.write(f"You are {age} years old.")
+
